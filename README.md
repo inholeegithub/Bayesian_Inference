@@ -47,3 +47,23 @@ model comparisons and hyperparameter search in classification tasks (e.g., KNN a
 
 This repository is a notebook-centered project for research and experimentation.
 Detailed descriptions of each experiment are documented in the markdown/code cells of each notebook.
+
+## KNN 기반 스캔 방식 Mermaid Diagram
+
+```mermaid
+flowchart TD
+    A[스캔 시작 요청] --> B[데이터 수집 및 전처리]
+    B --> C[스캔 포인트 후보 생성]
+    C --> D[KNN 모델에 후보 입력]
+    D --> E{최근접 이웃 거리/밀도 기준 충족?}
+    E -- 예 --> F[고신뢰 영역으로 판단]
+    E -- 아니오 --> G[불확실 영역으로 판단]
+    F --> H[스캔 간격 확대]
+    G --> I[스캔 간격 축소]
+    H --> J[다음 스캔 지점 선택]
+    I --> J
+    J --> K[측정값 업데이트 및 DB 저장]
+    K --> L{종료 조건 충족?}
+    L -- 아니오 --> C
+    L -- 예 --> M[스캔 종료 및 결과 리포트]
+```
